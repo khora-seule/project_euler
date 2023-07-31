@@ -6,7 +6,6 @@ fn factor_bound( n : usize ) -> usize {
     (n as f64).sqrt() as usize +1
 }
 
-
 pub fn is_prime( n : usize ) -> bool {
     if n == 1 { false } else {
         for i in 2..factor_bound(n) {
@@ -41,4 +40,8 @@ pub fn factorize( n : usize ) -> Vec<(usize,usize)> {
         i += 1;
     }
     result
+}
+
+pub fn nums_by_length( base: usize, length: usize ) -> Vec<usize> {
+    (base.pow((length-1) as u32)..base.pow(length as u32)).collect::<Vec<usize>>()
 }

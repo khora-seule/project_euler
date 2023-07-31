@@ -44,8 +44,36 @@ fn p3(num : usize) -> usize {
     }
 }
 
-fn p4(input : usize) -> usize {
-    todo!()
+fn p4(length : usize) -> usize {
+
+    use crate::helpers::nums_by_length;
+
+
+    let mut maximum = 0;
+
+    for n in nums_by_length(10,length) {
+        for m in nums_by_length(10,length) {
+            let mut palindrome = true;
+            let mult = n*m;
+            let mut result = mult.to_string();
+
+            'inner: while result.len() >= 2 {
+                match result.pop() {
+                    Some(num) => {
+                        if result.remove(0) != num {
+                            palindrome = false;
+                            break 'inner
+                        }
+                    }
+                    None => unreachable!(),
+                }
+            }
+            if palindrome && mult >= maximum {
+                maximum = mult;
+            }
+        }
+    }
+    return maximum
 }
 
 fn main() {
