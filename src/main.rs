@@ -1,3 +1,4 @@
+
 use std::{ env, collections };
 
 mod helpers;
@@ -14,7 +15,7 @@ fn p1(upper : usize) -> usize {
 
 fn p2(max : usize) -> usize {
     
-    use crate::helpers::fib;
+    use helpers::fib;
 
     let mut fibs = Vec::new();
 
@@ -36,7 +37,7 @@ fn p2(max : usize) -> usize {
 
 fn p3(num : usize) -> usize {
     
-    use crate::helpers::factorize;
+    use helpers::factorize;
 
     match factorize(num).into_iter().map( |(p,_)| p ).max() {
         Some(largest) => largest,
@@ -46,7 +47,7 @@ fn p3(num : usize) -> usize {
 
 fn p4(length : usize) -> usize {
 
-    use crate::helpers::{ nums_by_length, is_palindrome };
+    use helpers::{ nums_by_length, is_palindrome };
 
 
     let mut maximum = 0;
@@ -67,7 +68,7 @@ fn p4(length : usize) -> usize {
 fn p5(upper: usize) -> usize {
 
     use collections::HashSet;
-    use crate::helpers::{ unfactorize, factorize };
+    use helpers::{ unfactorize, factorize };
 
 
     // Flattened list of all prime factor, prime power pairs that occur in any factorization
@@ -94,6 +95,21 @@ fn p6(upper: usize) -> usize {
     (1..upper+1).sum::<usize>().pow(2) - (1..upper+1).map( |x: usize| x.pow(2) ).sum::<usize>()
 }
 
+fn p7(n : usize ) -> usize {
+
+    use helpers::is_prime;
+
+    let mut i = 0;
+    let mut p = 1;
+    while i != n {
+        p += 1;
+        if is_prime(p) {
+            i += 1;
+        }
+    }
+    return p
+}
+
 fn main() {
 
     let args: Vec<String> = env::args().collect();
@@ -106,33 +122,9 @@ fn main() {
     match problem.parse::<usize>() {
         Ok(num) => {
             match num {
-                1 => {
+                7 => {
                     match argument.parse::<usize>() {
-                        Ok(arg) => println!("{}",p1(arg)),
-                        Err(_) => error!(num),
-                    }
-                }
-                2 => {
-                    match argument.parse::<usize>() {
-                        Ok(arg) => println!("{}",p2(arg)),
-                        Err(_) => error!(num),
-                    }
-                }
-                3 => {
-                    match argument.parse::<usize>() {
-                        Ok(arg) => println!("{}",p3(arg)),
-                        Err(_) => error!(num),
-                    }
-                }
-                4 => {
-                    match argument.parse::<usize>() {
-                        Ok(arg) => println!("{}",p4(arg)),
-                        Err(_) => error!(num),
-                    }
-                }
-                5 => {
-                    match argument.parse::<usize>() {
-                        Ok(arg) => println!("{}",p5(arg)),
+                        Ok(arg) => println!("{}",p7(arg)),
                         Err(_) => error!(num),
                     }
                 }
@@ -142,6 +134,37 @@ fn main() {
                         Err(_) => error!(num),
                     }
                 }
+                5 => {
+                    match argument.parse::<usize>() {
+                        Ok(arg) => println!("{}",p5(arg)),
+                        Err(_) => error!(num),
+                    }
+                }
+                4 => {
+                    match argument.parse::<usize>() {
+                        Ok(arg) => println!("{}",p4(arg)),
+                        Err(_) => error!(num),
+                    }
+                }
+                3 => {
+                    match argument.parse::<usize>() {
+                        Ok(arg) => println!("{}",p3(arg)),
+                        Err(_) => error!(num),
+                    }
+                }
+                2 => {
+                    match argument.parse::<usize>() {
+                        Ok(arg) => println!("{}",p2(arg)),
+                        Err(_) => error!(num),
+                    }
+                }
+                1 => {
+                    match argument.parse::<usize>() {
+                        Ok(arg) => println!("{}",p1(arg)),
+                        Err(_) => error!(num),
+                    }
+                }
+                
                 _ => println!("Problem Unsolved Currently!"),
             }
         }
