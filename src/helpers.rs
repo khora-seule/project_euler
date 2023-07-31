@@ -45,3 +45,18 @@ pub fn factorize( n : usize ) -> Vec<(usize,usize)> {
 pub fn nums_by_length( base: usize, length: usize ) -> Vec<usize> {
     (base.pow((length-1) as u32)..base.pow(length as u32)).collect::<Vec<usize>>()
 }
+
+pub fn is_palindrome( n : usize ) -> bool {
+    let mut n_string = n.to_string();
+    while n_string.len() >= 2 {
+        match n_string.pop() {
+            Some(num) => {
+                if n_string.remove(0) != num {
+                    return false
+                }
+            }
+            None => unreachable!(),
+        }
+    }
+    return true
+}
