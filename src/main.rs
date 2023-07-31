@@ -1,4 +1,4 @@
-use std::env;
+use std::{ env, collections };
 
 mod helpers;
 
@@ -64,7 +64,31 @@ fn p4(length : usize) -> usize {
     return maximum
 }
 
+fn p5(upper: usize) -> usize {
 
+    use collections::HashSet;
+    use crate::helpers::{ unfactorize, factorize };
+
+
+    // Flattened list of all prime factor, prime power pairs that occur in any factorization
+    // of a number in the range 1..upper+1
+    let factorizations = (1..upper+1).map(|x| factorize(x) ).flatten().collect::<Vec<_>>();
+
+    // Set of primes that occur in factorizations
+    let primes = factorizations.iter().map(|(p,_)| *p ).collect::<HashSet<usize>>();
+
+    let mut result = Vec::new();
+
+    for p in primes {
+        match factorizations.iter().filter(|(f,_)| p == *f ).max_by(|(p1,t1),(p2,t2)| t1.cmp(t2) ) {
+            Some(t) => result.push((p,t.1)),
+            None => unreachable!(),
+        }
+    }
+
+    unfactorize(result)
+
+}
 
 fn main() {
 
@@ -99,6 +123,12 @@ fn main() {
                 4 => {
                     match argument.parse::<usize>() {
                         Ok(arg) => println!("{}",p4(arg)),
+                        Err(_) => error!(num),
+                    }
+                }
+                5 => {
+                    match argument.parse::<usize>() {
+                        Ok(arg) => println!("{}",p5(arg)),
                         Err(_) => error!(num),
                     }
                 }

@@ -42,6 +42,14 @@ pub fn factorize( n : usize ) -> Vec<(usize,usize)> {
     result
 }
 
+pub fn unfactorize( factorization: Vec<(usize,usize)> ) -> usize {
+    let mut result = 1;
+    for (p,t) in factorization {
+        result *= p.pow(t as u32);
+    }
+    result
+}
+
 pub fn nums_by_length( base: usize, length: usize ) -> Vec<usize> {
     (base.pow((length-1) as u32)..base.pow(length as u32)).collect::<Vec<usize>>()
 }
